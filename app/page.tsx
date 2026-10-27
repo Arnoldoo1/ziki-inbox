@@ -82,7 +82,7 @@ export default function Dashboard() {
               <span className="text-gray-400">pts</span>
               <span className="text-gray-500">of 500, 0 solved, 100%.</span>
               <button 
-                onClick={() => alert('Ranking page - Coming soon')}
+                onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}
                 className="text-blue-400 hover:text-blue-300"
               >
                 Open Ranking
