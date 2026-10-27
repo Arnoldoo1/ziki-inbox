@@ -155,13 +155,13 @@ export default function Dashboard() {
                 </h2>
                 
                 {/* Agent Reasoning & Confidence */}
-                <div className="relative bg-[#0a0a0a] border border-[#1f1f1f] rounded-lg p-4 mb-4">
-                  <span className="absolute top-2 right-2 px-2 py-0.5 bg-red-500/10 text-red-400 text-xs rounded border border-red-500/20">
-                    [Confidence: Low]
-                  </span>
-                  <p className="text-sm text-gray-300 pr-24">
+                <div className="bg-[#0a0a0a] border border-[#1f1f1f] rounded-lg p-4 mb-4 flex items-start justify-between gap-3">
+                  <p className="text-sm text-gray-300 flex-1">
                     I tried fixing the contrast using 3 different CSS approaches, but all failed the accessibility test.
                   </p>
+                  <span className="px-2 py-0.5 bg-red-500/10 text-red-400 text-xs rounded-full border border-red-500/20 whitespace-nowrap">
+                    [Confidence: Low]
+                  </span>
                 </div>
                 
                 <button
