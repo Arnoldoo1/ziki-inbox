@@ -11,7 +11,7 @@ import {
 } from 'lucide-react';
 
 export default function Home() {
-  const [view, setView] = useState<'original' | 'improved'>('improved');
+  const [view, setView] = useState<'original' | 'improved'>('original');
   const [showFullExplanation, setShowFullExplanation] = useState(false);
 
   const toggleView = () => {
