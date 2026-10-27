@@ -2,282 +2,285 @@
 
 import { useState } from 'react';
 import {
-  Zap,
   ChevronDown,
   Bot,
-  Circle,
-  Check,
-  FileDiff,
-  X,
+  Plus,
+  MessageSquare,
+  AlertCircle,
+  CheckCircle2,
+  Clock,
+  ArrowRight,
+  Zap,
 } from 'lucide-react';
 
-export default function Home() {
-  const [view, setView] = useState<'original' | 'improved'>('original');
-  const [showFullExplanation, setShowFullExplanation] = useState(false);
-  const [approved, setApproved] = useState(false);
-  const [showDiff, setShowDiff] = useState(false);
-  const [showAgentsDropdown, setShowAgentsDropdown] = useState(false);
-
-  const toggleView = () => {
-    setView((prev) => (prev === 'original' ? 'improved' : 'original'));
-  };
-
-  const handleApprove = () => {
-    setApproved(true);
-    setTimeout(() => setApproved(false), 2000);
-  };
-
-  const handleViewDiff = () => {
-    setShowDiff(true);
-  };
-
-  const paragraphs = [
-    "The current color palette used for interactive elements in the navigation and action components fails to meet the WCAG 2.1 AA minimum contrast ratio of 4.5:1 against the background surfaces. Specifically, the secondary button text and disabled state indicators blend with their container backgrounds, making them difficult to distinguish for users with low vision or color perception deficiencies.",
-    "Our analysis indicates that the contrast issue is most prominent on the 'Approve' and 'Reject' action row within agent-generated issue cards. When rendered on the #161b22 card background, the existing text color (#7d8590) yields a calculated contrast ratio of only 3.8:1, falling short of the accessibility threshold and creating potential compliance concerns for enterprise deployments.",
-    "To remediate this, we propose updating the affected text and icon colors to #c9d1d9 for body content and utilizing the primary accent #3b82f6 for actionable elements with sufficient background differentiation. This change is isolated to the agent inbox component styles and should not introduce regressions to other dashboard modules.",
-  ];
+export default function Console() {
+  const [autonomy, setAutonomy] = useState('Ask every time');
+  const [message, setMessage] = useState('');
 
   return (
-    <div
-      className="min-h-screen w-full"
-      style={{ backgroundColor: '#0d1117', color: '#c9d1d9' }}
-    >
-      {/* Top Nav Bar */}
-      <nav
-        className="flex items-center justify-between px-6 py-3 border-b"
-        style={{ borderColor: '#30363d', backgroundColor: '#0d1117' }}
-      >
-        <div className="flex items-center gap-8">
-          <div className="flex items-center gap-2">
-            <Zap size={20} className="text-white" />
-            <span className="text-white font-semibold text-lg">Ziki</span>
-          </div>
-          <div className="hidden md:flex items-center gap-6 text-sm">
-            <button className="flex items-center gap-1 hover:text-white transition-colors">
-              Zedu <ChevronDown size={16} />
-            </button>
-            <button className="hover:text-white transition-colors">Product</button>
-            <button className="hover:text-white transition-colors">Marketing</button>
-            <button className="hover:text-white transition-colors">Security</button>
-          </div>
-        </div>
-        <div className="flex items-center gap-4">
-          <div className="relative">
-            <button
-              onClick={() => setShowAgentsDropdown(!showAgentsDropdown)}
-              className="flex items-center gap-1 px-3 py-1.5 rounded-md text-sm border hover:bg-[#161b22] transition-colors"
-              style={{ borderColor: '#30363d' }}
-            >
-              Agents <ChevronDown size={16} />
-            </button>
-            {showAgentsDropdown && (
-              <div
-                className="absolute right-0 mt-2 w-48 rounded-md border shadow-lg z-50"
-                style={{ backgroundColor: '#161b22', borderColor: '#30363d' }}
-              >
-                <div className="py-1">
-                  <button className="w-full text-left px-4 py-2 text-sm hover:bg-[#0d1117]">All Agents</button>
-                  <button className="w-full text-left px-4 py-2 text-sm hover:bg-[#0d1117]">Sentinel</button>
-                  <button className="w-full text-left px-4 py-2 text-sm hover:bg-[#0d1117]">Active</button>
-                </div>
+    <div className="min-h-screen bg-[#0a0a0a] text-gray-200">
+      {/* Top Nav */}
+      <nav className="border-b border-[#1f1f1f] bg-[#0a0a0a]">
+        <div className="max-w-[1600px] mx-auto px-6 py-3 flex items-center justify-between">
+          <div className="flex items-center gap-8">
+            <div className="flex items-center gap-2">
+              <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+                <Zap size={16} className="text-white" />
               </div>
-            )}
-          </div>
-          <div className="flex items-center gap-2">
-            <div
-              className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold text-white"
-              style={{ backgroundColor: '#238636' }}
-            >
-              AN
+              <span className="text-white font-semibold">ziki</span>
+              <ChevronDown size={14} className="text-gray-400" />
             </div>
-            <span className="text-sm hidden sm:block">Arnold Nyamongo</span>
-            <ChevronDown size={16} />
+            <div className="hidden md:flex items-center gap-6 text-sm">
+              <button className="hover:text-white">Zedu</button>
+              <button className="hover:text-white">Product</button>
+              <button className="hover:text-white">Marketing</button>
+              <button className="hover:text-white">Security</button>
+            </div>
+          </div>
+          <div className="flex items-center gap-4">
+            <button className="text-sm text-gray-400 hover:text-white">[29,674.99pts]</button>
+            <button className="relative text-sm text-gray-400 hover:text-white">
+              [2]
+              <span className="absolute -top-1 -right-2 w-2 h-2 bg-red-500 rounded-full"></span>
+            </button>
+            <button className="flex items-center gap-2 px-3 py-1.5 rounded-md hover:bg-[#1f1f1f]">
+              <div className="w-7 h-7 rounded-full bg-gradient-to-br from-orange-400 to-pink-500 flex items-center justify-center text-xs font-semibold text-white">
+                AS
+              </div>
+              <span className="text-sm">AbdulSamad</span>
+              <ChevronDown size={14} />
+            </button>
           </div>
         </div>
       </nav>
 
-      {/* Main Area */}
-      <main className="max-w-4xl mx-auto px-4 py-6">
-        {/* Breadcrumb */}
-        <div className="mb-6 text-sm">
-          <span>Zedu</span> <span className="mx-1">{'>'}</span>{' '}
-          <span className="text-white">Issues</span>
+      {/* Secondary Nav */}
+      <div className="border-b border-[#1f1f1f] bg-[#0a0a0a]">
+        <div className="max-w-[1600px] mx-auto px-6">
+          <div className="flex items-center gap-6 text-sm">
+            <button className="py-3 border-b-2 border-blue-500 text-white">Console</button>
+            <button className="py-3 text-gray-400 hover:text-white flex items-center gap-2">
+              Inbox <span className="px-1.5 py-0.5 bg-red-500 text-white text-xs rounded-full">2</span>
+            </button>
+            <button className="py-3 text-gray-400 hover:text-white">Issues</button>
+            <button className="py-3 text-gray-400 hover:text-white">Ranking</button>
+            <button className="py-3 text-gray-400 hover:text-white">Activity</button>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <main className="max-w-[1600px] mx-auto px-6 py-6">
+        <div className="mb-6">
+          <div className="flex items-center gap-2 text-sm text-gray-400 mb-2">
+            <span>Approves every write</span>
+            <span>·</span>
+            <span>Supervision</span>
+          </div>
+          <h1 className="text-3xl font-semibold text-white mb-2">Agent console</h1>
+          <p className="text-gray-400">Brief your agent, watch every step, and stay the only person who can merge.</p>
+          <div className="flex items-center gap-4 mt-4 text-sm">
+            <button className="text-blue-400 hover:text-blue-300">Live activity</button>
+            <button className="text-blue-400 hover:text-blue-300 flex items-center gap-2">
+              Needs you <span className="px-1.5 py-0.5 bg-red-500 text-white text-xs rounded-full">2</span>
+            </button>
+          </div>
         </div>
 
-        {/* Toggle Switch */}
-        <div className="mb-6 flex items-center gap-3">
-          <span className="text-sm" style={{ color: '#8b949e' }}>Toggle view:</span>
-          <button
-            onClick={toggleView}
-            className="px-4 py-2 rounded-md text-sm border transition-colors hover:bg-[#161b22]"
-            style={{ borderColor: '#30363d', backgroundColor: '#161b22' }}
-          >
-            {view === 'original'
-              ? 'View: Original Ziki (Before)'
-              : 'View: My Improvement (After)'}
-          </button>
-        </div>
-
-        {/* Inbox Card */}
-        <div
-          className="rounded-lg border overflow-hidden"
-          style={{ backgroundColor: '#161b22', borderColor: '#30363d' }}
-        >
-          {/* Card Header */}
-          <div
-            className="px-6 py-4 border-b flex items-center justify-between flex-wrap gap-3"
-            style={{ borderColor: '#30363d' }}
-          >
-            <div className="flex items-center gap-3 flex-wrap">
-              <div className="flex items-center gap-2">
-                <Bot size={18} className="text-white" />
-                <span className="text-white font-medium">Sentinel</span>
-                <span
-                  className="px-1.5 py-0.5 text-xs rounded border"
-                  style={{ borderColor: '#30363d', color: '#8b949e' }}
-                >
-                  AGENT
-                </span>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Left Column */}
+          <div className="lg:col-span-2 space-y-6">
+            {/* Agent Config */}
+            <div className="bg-[#111111] border border-[#1f1f1f] rounded-lg p-6">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-lg font-semibold text-white">Scope</h2>
+                <span className="text-sm text-gray-400">session</span>
               </div>
-              <span style={{ color: '#8b949e' }}>#231</span>
-              <span
-                className="flex items-center gap-1 px-2 py-0.5 text-xs rounded-full border"
-                style={{
-                  borderColor: '#d29922',
-                  color: '#d29922',
-                  backgroundColor: 'rgba(210, 153, 34, 0.1)',
-                }}
-              >
-                <Circle size={6} fill="#d29922" /> Needs approval
-              </span>
+              
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+                <button className="p-3 bg-[#0a0a0a] border border-[#1f1f1f] rounded-lg text-left hover:border-[#333]">
+                  <div className="flex items-center gap-2 mb-1">
+                    <Bot size={16} className="text-blue-400" />
+                    <span className="text-sm text-white">Ziki Reviewer</span>
+                  </div>
+                  <span className="text-xs text-gray-500">DeepSeek V4.1</span>
+                </button>
+                <button className="p-3 bg-[#0a0a0a] border border-[#1f1f1f] rounded-lg text-left hover:border-[#333]">
+                  <div className="flex items-center gap-2 mb-1">
+                    <Bot size={16} className="text-purple-400" />
+                    <span className="text-sm text-white">A3 Solver</span>
+                  </div>
+                  <span className="text-xs text-gray-500">Claude Sonnet</span>
+                </button>
+              </div>
+
+              <div className="mb-6">
+                <p className="text-sm text-gray-400 mb-2">Acting for AbdulSamad</p>
+                <p className="text-sm text-gray-300">You own every action it takes. Nothing merges without you.</p>
+              </div>
+
+              <div className="mb-6">
+                <h3 className="text-sm font-medium text-white mb-3">Permissions</h3>
+                <div className="flex flex-wrap gap-2">
+                  {['read', 'comment', 'bid', 'branch', 'pr', 'verdict'].map((perm) => (
+                    <span key={perm} className="px-2 py-1 bg-[#0a0a0a] border border-[#1f1f1f] rounded text-xs text-gray-400">
+                      {perm}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-sm font-medium text-white mb-3">Autonomy</h3>
+                <select 
+                  value={autonomy}
+                  onChange={(e) => setAutonomy(e.target.value)}
+                  className="w-full md:w-auto px-3 py-2 bg-[#0a0a0a] border border-[#1f1f1f] rounded-lg text-sm text-white focus:outline-none focus:border-[#333]"
+                >
+                  <option>Ask every time</option>
+                  <option>Every write returns a plan first</option>
+                  <option>Ask before writes</option>
+                  <option>Triage and reviews run free</option>
+                  <option>Autonomous</option>
+                </select>
+                <p className="text-xs text-gray-500 mt-2">Every write needs your approval · undo stays on</p>
+              </div>
+            </div>
+
+            {/* Points */}
+            <div className="bg-[#111111] border border-[#1f1f1f] rounded-lg p-6">
+              <h2 className="text-lg font-semibold text-white mb-4">Points this week</h2>
+              <div className="flex items-baseline gap-2 mb-2">
+                <span className="text-2xl font-semibold text-white">450</span>
+                <span className="text-gray-500">/ 500</span>
+              </div>
+              <div className="w-full bg-[#0a0a0a] rounded-full h-2 mb-2">
+                <div className="bg-blue-500 h-2 rounded-full" style={{ width: '90%' }}></div>
+              </div>
+              <p className="text-sm text-gray-400">50 pts to the weekly requirement.</p>
+            </div>
+
+            {/* Directives */}
+            <div className="bg-[#111111] border border-[#1f1f1f] rounded-lg p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-lg font-semibold text-white">Directives</h2>
+                <span className="text-sm text-gray-400">1 today</span>
+              </div>
+              <div className="flex items-center gap-2 p-3 bg-[#0a0a0a] border border-[#1f1f1f] rounded-lg">
+                <span className="text-blue-400">/triage</span>
+                <span className="text-gray-300">#1387</span>
+                <span className="ml-auto px-2 py-1 bg-orange-500/10 text-orange-400 text-xs rounded">needs you</span>
+              </div>
+              <p className="text-sm text-gray-500 mt-3">Waiting on your approval</p>
+            </div>
+
+            {/* Dispatch */}
+            <div className="bg-[#111111] border border-[#1f1f1f] rounded-lg p-6">
+              <h2 className="text-lg font-semibold text-white mb-4">Standing by</h2>
+              <p className="text-gray-400 mb-4">Nothing is running.</p>
+              <p className="text-sm text-gray-400 mb-4">Give Ziki Reviewer a brief below. It comes back with a plan before it writes anything.</p>
+              
+              <div className="flex items-center gap-2 p-2 bg-[#0a0a0a] border border-[#1f1f1f] rounded-lg">
+                <input
+                  type="text"
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  placeholder="/triage #1387/fix #1384/review #1355"
+                  className="flex-1 px-3 py-2 bg-transparent text-sm text-white focus:outline-none"
+                />
+                <button className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-md flex items-center gap-2">
+                  Dispatch
+                  <ArrowRight size={14} />
+                </button>
+              </div>
+              <div className="flex items-center gap-4 mt-3 text-xs text-gray-500">
+                <button className="hover:text-gray-400">/triage #1387</button>
+                <button className="hover:text-gray-400">confirm + dedupe/fix #1384</button>
+                <button className="hover:text-gray-400">patch + PR/review #1355</button>
+                <button className="hover:text-gray-400">checks + verdict</button>
+              </div>
             </div>
           </div>
 
-          {/* Card Body */}
-          <div className="px-6 py-5">
-            {view === 'original' ? (
-              <div>
-                <div className="space-y-4 text-sm leading-relaxed">
-                  {paragraphs.map((text, idx) => (
-                    <p key={idx}>{text}</p>
-                  ))}
+          {/* Right Column */}
+          <div className="space-y-6">
+            {/* Needs you */}
+            <div className="bg-[#111111] border border-[#1f1f1f] rounded-lg">
+              <div className="p-4 border-b border-[#1f1f1f] flex items-center justify-between">
+                <h2 className="text-lg font-semibold text-white flex items-center gap-2">
+                  Needs you <span className="px-1.5 py-0.5 bg-red-500 text-white text-xs rounded-full">2</span>
+                </h2>
+                <button className="text-sm text-blue-400 hover:text-blue-300">Open the decision queue</button>
+              </div>
+              <div className="p-4 space-y-4">
+                <div className="p-4 bg-[#0a0a0a] border border-[#1f1f1f] rounded-lg">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm font-medium text-white">Plan approval</span>
+                    <span className="text-xs text-gray-500">3m ago</span>
+                  </div>
+                  <p className="text-sm text-gray-300 mb-2">Triage #1387 — five H1 headings on the About page</p>
+                  <p className="text-xs text-gray-500 mb-3">Read #1387 and its thread, check for near-duplicates across 1,380 issues, then confirm the report with a triage note.</p>
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="px-2 py-0.5 bg-[#1f1f1f] text-xs text-gray-400 rounded">4 min</span>
+                    <span className="px-2 py-0.5 bg-[#1f1f1f] text-xs text-gray-400 rounded">low risk</span>
+                    <span className="px-2 py-0.5 bg-orange-500/10 text-orange-400 text-xs rounded">writes</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <button className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-md">Approve</button>
+                    <button className="px-3 py-1.5 bg-[#1f1f1f] hover:bg-[#252525] text-white text-sm rounded-md">Edit</button>
+                  </div>
+                  <button className="text-xs text-blue-400 hover:text-blue-300 mt-2">[#1387 · read the thread]</button>
                 </div>
-                <div className="mt-4">
-                  <button
-                    className="text-xs px-2 py-1 rounded hover:bg-[#0d1117] transition-colors"
-                    style={{ color: '#8b949e' }}
-                  >
-                    Show TL;DR
-                  </button>
+
+                <div className="p-4 bg-[#0a0a0a] border border-[#1f1f1f] rounded-lg">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm font-medium text-white">Question</span>
+                    <span className="text-xs text-gray-500">12m ago</span>
+                  </div>
+                  <p className="text-sm text-gray-300 mb-2">Design call on #1384 — tables render as pipe text</p>
+                  <p className="text-xs text-gray-500 mb-3">The renderer drops table rows. I can patch it now, or log it as a follow-up because tables are outside this milestone's scope. Which do you want?</p>
+                  <div className="space-y-2">
+                    <button className="w-full px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-md text-left">Fix the renderer now</button>
+                    <button className="w-full px-3 py-2 bg-[#1f1f1f] hover:bg-[#252525] text-white text-sm rounded-md text-left">Log a follow-up and move on</button>
+                  </div>
+                  <p className="text-xs text-gray-500 mt-2">Answering unblocks Ziki Reviewer — it keeps its claim.</p>
                 </div>
               </div>
-            ) : (
-              <div>
-                <div className="mb-3">
-                  <span
-                    className="text-xs tracking-wider uppercase"
-                    style={{ color: '#8b949e' }}
-                  >
-                    TL;DR ACTION
-                  </span>
+            </div>
+
+            {/* Your agents */}
+            <div className="bg-[#111111] border border-[#1f1f1f] rounded-lg">
+              <div className="p-4 border-b border-[#1f1f1f]">
+                <h2 className="text-lg font-semibold text-white">Your agents</h2>
+                <p className="text-sm text-gray-500">2 online</p>
+              </div>
+              <div className="p-4 space-y-3">
+                <div className="flex items-center gap-3 p-3 bg-[#0a0a0a] border border-[#1f1f1f] rounded-lg">
+                  <Bot size={18} className="text-blue-400" />
+                  <div className="flex-1">
+                    <p className="text-sm text-white">Ziki Reviewer</p>
+                    <p className="text-xs text-gray-500">Standing by</p>
+                  </div>
                 </div>
-                <h2 className="text-2xl md:text-3xl font-bold text-white mb-3 leading-tight">
-                  Action Required: Approve contrast fix for Issue #231
-                </h2>
-                <button
-                  onClick={() => setShowFullExplanation((prev) => !prev)}
-                  className="flex items-center gap-1 text-sm mb-4 hover:underline transition-all"
-                  style={{ color: '#3b82f6' }}
-                >
-                  <span
-                    className={`transition-transform duration-200 ${
-                      showFullExplanation ? 'rotate-180' : ''
-                    }`}
-                  >
-                    <ChevronDown size={16} />
-                  </span>
-                  {showFullExplanation
-                    ? 'Hide full explanation'
-                    : 'Show full explanation'}
-                </button>
-                <div
-                  className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                    showFullExplanation
-                      ? 'max-h-[1000px] opacity-100'
-                      : 'max-h-0 opacity-0'
-                  }`}
-                >
-                  <div className="space-y-4 text-sm leading-relaxed pt-2">
-                    {paragraphs.map((text, idx) => (
-                      <p key={idx}>{text}</p>
-                    ))}
+                <div className="flex items-center gap-3 p-3 bg-[#0a0a0a] border border-[#1f1f1f] rounded-lg">
+                  <Bot size={18} className="text-purple-400" />
+                  <div className="flex-1">
+                    <p className="text-sm text-white">A3 Solver</p>
+                    <p className="text-xs text-gray-500">Standing by</p>
                   </div>
                 </div>
               </div>
-            )}
-          </div>
+            </div>
 
-          {/* Card Footer */}
-          <div
-            className="px-6 py-4 border-t flex justify-end gap-3"
-            style={{ borderColor: '#30363d' }}
-          >
-            <button
-              onClick={handleViewDiff}
-              className="flex items-center gap-2 px-4 py-2 rounded-md text-sm border hover:bg-[#0d1117] transition-colors"
-              style={{ borderColor: '#30363d' }}
-            >
-              <FileDiff size={16} />
-              View Diff
-            </button>
-            <button
-              onClick={handleApprove}
-              className="flex items-center gap-2 px-4 py-2 rounded-md text-sm text-white hover:opacity-90 transition-opacity"
-              style={{ backgroundColor: '#3b82f6' }}
-            >
-              <Check size={16} />
-              {approved ? 'Approved!' : 'Approve fix'}
-            </button>
+            {/* Your points */}
+            <div className="bg-[#111111] border border-[#1f1f1f] rounded-lg p-4">
+              <h2 className="text-sm font-medium text-gray-400 mb-2">Your points</h2>
+              <p className="text-xl font-semibold text-white">29,674.99</p>
+              <p className="text-sm text-gray-500 mt-2">Weekly goal <span className="text-white">450 / 500</span></p>
+            </div>
           </div>
         </div>
       </main>
-
-      {/* Diff Modal */}
-      {showDiff && (
-        <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4" onClick={() => setShowDiff(false)}>
-          <div
-            className="rounded-lg border max-w-2xl w-full max-h-[80vh] overflow-auto"
-            style={{ backgroundColor: '#161b22', borderColor: '#30363d' }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div
-              className="px-6 py-4 border-b flex items-center justify-between"
-              style={{ borderColor: '#30363d' }}
-            >
-              <h3 className="text-white font-medium">Diff - Issue #231</h3>
-              <button onClick={() => setShowDiff(false)} className="hover:text-white">
-                <X size={18} />
-              </button>
-            </div>
-            <div className="px-6 py-4 space-y-4">
-              <div>
-                <div className="text-sm font-medium mb-2 text-red-400">- Removed</div>
-                <pre className="text-xs bg-[#0d1117] p-3 rounded overflow-x-auto">
-                  <code>{`- color: #7d8590;
-- background: rgba(125, 133, 144, 0.1);`}</code>
-                </pre>
-              </div>
-              <div>
-                <div className="text-sm font-medium mb-2 text-green-400">+ Added</div>
-                <pre className="text-xs bg-[#0d1117] p-3 rounded overflow-x-auto">
-                  <code>{`+ color: #c9d1d9;
-+ background: rgba(201, 209, 217, 0.1);`}</code>
-                </pre>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
