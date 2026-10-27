@@ -8,14 +8,27 @@ import {
   Circle,
   Check,
   FileDiff,
+  X,
 } from 'lucide-react';
 
 export default function Home() {
   const [view, setView] = useState<'original' | 'improved'>('original');
   const [showFullExplanation, setShowFullExplanation] = useState(false);
+  const [approved, setApproved] = useState(false);
+  const [showDiff, setShowDiff] = useState(false);
+  const [showAgentsDropdown, setShowAgentsDropdown] = useState(false);
 
   const toggleView = () => {
     setView((prev) => (prev === 'original' ? 'improved' : 'original'));
+  };
+
+  const handleApprove = () => {
+    setApproved(true);
+    setTimeout(() => setApproved(false), 2000);
+  };
+
+  const handleViewDiff = () => {
+    setShowDiff(true);
   };
 
   const paragraphs = [
@@ -49,12 +62,27 @@ export default function Home() {
           </div>
         </div>
         <div className="flex items-center gap-4">
-          <button
-            className="flex items-center gap-1 px-3 py-1.5 rounded-md text-sm border hover:bg-[#161b22] transition-colors"
-            style={{ borderColor: '#30363d' }}
-          >
-            Agents <ChevronDown size={16} />
-          </button>
+          <div className="relative">
+            <button
+              onClick={() => setShowAgentsDropdown(!showAgentsDropdown)}
+              className="flex items-center gap-1 px-3 py-1.5 rounded-md text-sm border hover:bg-[#161b22] transition-colors"
+              style={{ borderColor: '#30363d' }}
+            >
+              Agents <ChevronDown size={16} />
+            </button>
+            {showAgentsDropdown && (
+              <div
+                className="absolute right-0 mt-2 w-48 rounded-md border shadow-lg z-50"
+                style={{ backgroundColor: '#161b22', borderColor: '#30363d' }}
+              >
+                <div className="py-1">
+                  <button className="w-full text-left px-4 py-2 text-sm hover:bg-[#0d1117]">All Agents</button>
+                  <button className="w-full text-left px-4 py-2 text-sm hover:bg-[#0d1117]">Sentinel</button>
+                  <button className="w-full text-left px-4 py-2 text-sm hover:bg-[#0d1117]">Active</button>
+                </div>
+              </div>
+            )}
+          </div>
           <div className="flex items-center gap-2">
             <div
               className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold text-white"
@@ -195,6 +223,7 @@ export default function Home() {
             style={{ borderColor: '#30363d' }}
           >
             <button
+              onClick={handleViewDiff}
               className="flex items-center gap-2 px-4 py-2 rounded-md text-sm border hover:bg-[#0d1117] transition-colors"
               style={{ borderColor: '#30363d' }}
             >
@@ -202,13 +231,52 @@ export default function Home() {
               View Diff
             </button>
             <button
+              onClick={handleApprove}
               className="flex items-center gap-2 px-4 py-2 rounded-md text-sm text-white hover:opacity-90 transition-opacity"
               style={{ backgroundColor: '#3b82f6' }}
             >
               <Check size={16} />
-              Approve fix
+              {approved ? 'Approved!' : 'Approve fix'}
             </button>
           </div>
+        </div>
+      </main>
+
+      {/* Diff Modal */}
+      {showDiff && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div
+            className="rounded-lg border max-w-2xl w-full max-h-[80vh] overflow-auto"
+            style={{ backgroundColor: '#161b22', borderColor: '#30363d' }}
+          >
+            <div
+              className="px-6 py-4 border-b flex items-center justify-between"
+              style={{ borderColor: '#30363d' }}
+            >
+              <h3 className="text-white font-medium">Diff - Issue #231</h3>
+              <button onClick={() => setShowDiff(false)} className="hover:text-white">
+                <X size={18} />
+              </button>
+            </div>
+            <div className="px-6 py-4 space-y-4">
+              <div>
+                <div className="text-sm font-medium mb-2 text-red-400">- Removed</div>
+                <pre className="text-xs bg-[#0d1117] p-3 rounded overflow-x-auto">
+                  <code>{`- color: #7d8590;
+- background: rgba(125, 133, 144, 0.1);`}</code>
+                </pre>
+              </div>
+              <div>
+                <div className="text-sm font-medium mb-2 text-green-400">+ Added</div>
+                <pre className="text-xs bg-[#0d1117] p-3 rounded overflow-x-auto">
+                  <code>{`+ color: #c9d1d9;
++ background: rgba(201, 209, 217, 0.1);`}</code>
+                </pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
         </div>
       </main>
     </div>
