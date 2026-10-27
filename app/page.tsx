@@ -19,14 +19,9 @@ import {
 
 export default function Dashboard() {
   const [timeRange, setTimeRange] = useState('Weekly');
-  const [view, setView] = useState<'original' | 'improved'>('improved');
   const [showFullExplanation, setShowFullExplanation] = useState(false);
   const [approved, setApproved] = useState(false);
   const [showDiff, setShowDiff] = useState(false);
-
-  const toggleView = () => {
-    setView((prev) => (prev === 'original' ? 'improved' : 'original'));
-  };
 
   const handleApprove = () => {
     setApproved(true);
@@ -111,16 +106,6 @@ export default function Dashboard() {
           New issue
         </button>
 
-        {/* Toggle for Inbox Card */}
-        <div className="mb-4">
-          <button
-            onClick={toggleView}
-            className="px-4 py-2 bg-[#111111] border border-[#1f1f1f] hover:bg-[#1f1f1f] text-white text-sm rounded-md transition-colors"
-          >
-            {view === 'original' ? 'Switch to Improved View' : 'Switch to Original View'}
-          </button>
-        </div>
-
         {/* Inbox Card */}
         <div className="bg-[#111111] border border-[#1f1f1f] rounded-lg overflow-hidden mb-6 max-w-[800px]">
           {/* Card Header */}
@@ -130,71 +115,64 @@ export default function Dashboard() {
                 <Bot size={16} className="text-white" />
               </div>
               <span className="text-white font-medium">Sentinel</span>
+              <span className="px-2 py-0.5 bg-[#1f1f1f] text-xs text-gray-400 rounded border border-[#1f1f1f]">
+                AGENT
+              </span>
+              <span className="text-gray-400 text-sm">#231</span>
               <span className="px-2 py-0.5 bg-yellow-500/10 text-yellow-400 text-xs rounded border border-yellow-500/20 flex items-center gap-1">
                 <Circle size={6} fill="currentColor" /> Needs approval
               </span>
-              <span className="text-gray-400 text-sm">#231</span>
             </div>
           </div>
 
           {/* Card Body */}
           <div className="px-6 py-6">
-            {view === 'original' ? (
-              <div className="space-y-4 text-sm leading-relaxed text-gray-300">
+            <div className="mb-3">
+              <span className="text-xs tracking-wider text-gray-500 uppercase">TL;DR ACTION</span>
+            </div>
+            <h2 className="text-3xl font-bold text-white mb-4 leading-tight">
+              Action Required: Approve contrast fix for Issue #231
+            </h2>
+            
+            {/* Agent Reasoning & Confidence */}
+            <div className="bg-[#0a0a0a] border border-[#1f1f1f] rounded-lg p-4 mb-4 flex items-start justify-between gap-3">
+              <p className="text-sm text-gray-300 flex-1">
+                I tried fixing the contrast using 3 different CSS approaches, but all failed the accessibility test.
+              </p>
+              <span className="px-2 py-0.5 bg-red-500/10 text-red-400 text-xs rounded-full border border-red-500/20 whitespace-nowrap">
+                [Confidence: Low]
+              </span>
+            </div>
+            
+            <button
+              onClick={() => setShowFullExplanation((prev) => !prev)}
+              className="flex items-center gap-1 text-sm text-blue-400 hover:text-blue-300 mb-4 transition-colors"
+            >
+              {showFullExplanation ? (
+                <>
+                  <ChevronUp size={16} />
+                  Hide full technical explanation
+                </>
+              ) : (
+                <>
+                  <ChevronDown size={16} />
+                  Show full technical explanation
+                </>
+              )}
+            </button>
+            <div
+              className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                showFullExplanation
+                  ? 'max-h-[1000px] opacity-100'
+                  : 'max-h-0 opacity-0'
+              }`}
+            >
+              <div className="space-y-4 text-sm leading-relaxed text-gray-300 pt-2">
                 {paragraphs.map((text, idx) => (
                   <p key={idx}>{text}</p>
                 ))}
               </div>
-            ) : (
-              <div>
-                <div className="mb-3">
-                  <span className="text-xs tracking-wider text-gray-500 uppercase">TL;DR ACTION</span>
-                </div>
-                <h2 className="text-3xl font-bold text-white mb-4 leading-tight">
-                  Action Required: Approve contrast fix for Issue #231
-                </h2>
-                
-                {/* Agent Reasoning & Confidence */}
-                <div className="bg-[#0a0a0a] border border-[#1f1f1f] rounded-lg p-4 mb-4 flex items-start justify-between gap-3">
-                  <p className="text-sm text-gray-300 flex-1">
-                    I tried fixing the contrast using 3 different CSS approaches, but all failed the accessibility test.
-                  </p>
-                  <span className="px-2 py-0.5 bg-red-500/10 text-red-400 text-xs rounded-full border border-red-500/20 whitespace-nowrap">
-                    [Confidence: Low]
-                  </span>
-                </div>
-                
-                <button
-                  onClick={() => setShowFullExplanation((prev) => !prev)}
-                  className="flex items-center gap-1 text-sm text-blue-400 hover:text-blue-300 mb-4 transition-colors"
-                >
-                  {showFullExplanation ? (
-                    <>
-                      <ChevronUp size={16} />
-                      Hide full technical explanation
-                    </>
-                  ) : (
-                    <>
-                      <ChevronDown size={16} />
-                      Show full technical explanation
-                    </>
-                  )}
-                </button>
-                <div
-                  className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                    showFullExplanation
-                      ? 'max-h-[1000px] opacity-100'
-                      : 'max-h-0 opacity-0'
-                  }`}
-                >
-                  <div className="space-y-4 text-sm leading-relaxed text-gray-300 pt-2">
-                    {paragraphs.map((text, idx) => (
-                      <p key={idx}>{text}</p>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
+            </div>
           </div>
 
           {/* Card Footer */}
