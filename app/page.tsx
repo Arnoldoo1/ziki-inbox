@@ -106,7 +106,7 @@ export default function Home() {
 
         {/* Toggle Switch */}
         <div className="mb-6 flex items-center gap-3">
-          <span className="text-sm text-[#8b949e]">Toggle view:</span>
+          <span className="text-sm" style={{ color: '#8b949e' }}>Toggle view:</span>
           <button
             onClick={toggleView}
             className="px-4 py-2 rounded-md text-sm border transition-colors hover:bg-[#161b22]"
@@ -175,7 +175,7 @@ export default function Home() {
               <div>
                 <div className="mb-3">
                   <span
-                    className="text-xs tracking-wider"
+                    className="text-xs tracking-wider uppercase"
                     style={{ color: '#8b949e' }}
                   >
                     TL;DR ACTION
@@ -244,10 +244,11 @@ export default function Home() {
 
       {/* Diff Modal */}
       {showDiff && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4" onClick={() => setShowDiff(false)}>
           <div
             className="rounded-lg border max-w-2xl w-full max-h-[80vh] overflow-auto"
             style={{ backgroundColor: '#161b22', borderColor: '#30363d' }}
+            onClick={(e) => e.stopPropagation()}
           >
             <div
               className="px-6 py-4 border-b flex items-center justify-between"
@@ -277,8 +278,6 @@ export default function Home() {
           </div>
         </div>
       )}
-        </div>
-      </main>
     </div>
   );
 }
