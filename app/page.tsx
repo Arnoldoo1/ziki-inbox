@@ -99,7 +99,7 @@ export default function Dashboard() {
 
   return (
     <div className="bg-background font-body text-on-surface antialiased min-h-screen selection:bg-primary-fixed selection:text-on-primary-fixed relative overflow-x-hidden">
-      {/* Whimsical Atmospheric Glow Orbs */}
+      {/* Whimsical Atmospheric Glow Orbs & Stars */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
         <div className="absolute -top-24 -left-20 w-96 h-96 rounded-full bg-primary-fixed/25 blur-3xl animate-pulse-soft"></div>
         <div className="absolute top-1/4 -right-28 w-[450px] h-[450px] rounded-full bg-secondary-fixed/30 blur-3xl animate-float-slow"></div>
@@ -109,6 +109,10 @@ export default function Dashboard() {
         <span className="absolute top-44 right-[16%] text-primary-container animate-float-slow text-sm select-none opacity-70">★</span>
         <span className="absolute top-[60%] left-[8%] text-tertiary animate-float-slow text-base select-none opacity-50">✧</span>
         <span className="absolute top-[75%] right-[10%] text-secondary text-sm animate-float-gentle select-none opacity-65">✦</span>
+        <span className="absolute top-[35%] left-[25%] text-primary animate-twinkle text-xs select-none">✨</span>
+        <span className="absolute top-[15%] right-[35%] text-tertiary animate-twinkle text-sm select-none" style={{ animationDelay: '0.8s' }}>⭐</span>
+        <span className="absolute bottom-[40%] right-[25%] text-secondary animate-twinkle text-xs select-none" style={{ animationDelay: '1.2s' }}>✦</span>
+        <span className="absolute top-[85%] left-[20%] text-primary-container animate-twinkle text-sm select-none" style={{ animationDelay: '1.6s' }}>🌟</span>
       </div>
 
       {/* Header */}
@@ -188,25 +192,27 @@ export default function Dashboard() {
             <section className="flex flex-col md:flex-row items-start md:items-center justify-between gap-5 relative">
               <div className="flex items-start sm:items-center gap-4">
                 <div className="relative shrink-0">
-                  <div className="w-16 h-16 rounded-3xl bg-gradient-to-tr from-primary-container via-secondary-fixed to-tertiary-fixed p-1 shadow-[0_12px_28px_rgba(250,128,114,0.35)] animate-mascot cursor-pointer group" onClick={() => triggerToast('✨ Ziki Spark Mascot says: You are doing amazing today!')}>
+                  <div className="w-16 h-16 rounded-3xl bg-gradient-to-tr from-primary-container via-secondary-fixed to-tertiary-fixed p-1 shadow-[0_12px_28px_rgba(250,128,114,0.35)] animate-mascot cursor-pointer group hover:scale-110 transition-transform" onClick={() => triggerToast('✨ Ziki Spark Mascot says: You are doing AMAZING today! Keep shining! 🌟')}>
                     <div className="w-full h-full rounded-[1.3rem] bg-surface-container-lowest flex items-center justify-center relative overflow-hidden">
-                      <span className="text-3xl select-none group-hover:scale-125 transition-transform duration-300">🦊</span>
-                      <span className="absolute -top-1 -right-1 text-xs">✨</span>
+                      <span className="text-3xl select-none group-hover:scale-125 group-hover:rotate-12 transition-transform duration-300">🦊</span>
+                      <span className="absolute -top-1 -right-1 text-xs animate-bounce">✨</span>
+                      <span className="absolute -bottom-1 -left-1 text-xs opacity-0 group-hover:opacity-100 transition-opacity animate-pulse">💫</span>
                     </div>
                   </div>
-                  <span className="absolute -bottom-1 -right-1 px-1.5 py-0.2 rounded-full bg-tertiary text-on-tertiary font-label-sm text-[10px] font-bold shadow-sm">LVL 4</span>
+                  <span className="absolute -bottom-1 -right-1 px-1.5 py-0.2 rounded-full bg-gradient-to-r from-tertiary to-tertiary-container text-on-tertiary font-label-sm text-[10px] font-bold shadow-sm animate-wiggle">LVL 4 ✨</span>
                 </div>
                 <div className="flex flex-col gap-1.5">
                   <div className="flex flex-wrap items-center gap-2.5">
                     <h1 className="font-headline text-3xl md:text-4xl text-on-surface tracking-tight font-extrabold flex items-center gap-2">
                       Welcome back, Arnold
-                      <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-secondary-fixed text-on-secondary-fixed text-base select-none shadow-[0_4px_12px_rgba(227,199,254,0.5)] animate-bounce" style={{ animationDuration: '2.2s' }}>✨</span>
+                      <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-r from-secondary-fixed to-primary-fixed text-on-secondary-fixed text-base select-none shadow-[0_4px_12px_rgba(227,199,254,0.5)] animate-bounce hover:scale-125 transition-transform" style={{ animationDuration: '2.2s' }}>✨</span>
                     </h1>
-                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-primary-fixed to-secondary-fixed text-on-primary-fixed-variant font-label-sm text-xs font-bold shadow-[0_2px_10px_rgba(250,128,114,0.2)] hover:scale-105 transition-transform cursor-pointer">
-                      <span>🔥</span>
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-primary-fixed to-secondary-fixed text-on-primary-fixed-variant font-label-sm text-xs font-bold shadow-[0_2px_10px_rgba(250,128,114,0.2)] hover:scale-110 hover:shadow-[0_4px_16px_rgba(250,128,114,0.35)] transition-all cursor-pointer" onClick={() => triggerToast('🔥 Amazing! 5-day streak maintained! +50 Spark XP earned!')}>
+                      <span className="animate-bounce-slow">🔥</span>
                       <span>5-Day Streak</span>
                       <span className="text-on-surface-variant font-medium">·</span>
                       <span className="text-tertiary font-bold">+50 Spark XP today</span>
+                      <span className="animate-pulse">⚡</span>
                     </div>
                   </div>
                   <p className="font-body text-on-surface-variant font-medium flex items-center gap-2 flex-wrap">
@@ -217,10 +223,11 @@ export default function Dashboard() {
                 </div>
               </div>
               <div className="flex items-center gap-3 shrink-0">
-                <button onClick={() => setShowNewIssueModal(true)} className="group shimmer-btn relative inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full text-on-primary font-label-lg text-sm shadow-[0_10px_24px_-4px_rgba(162,61,52,0.45)] hover:shadow-[0_14px_32px_-4px_rgba(162,61,52,0.6)] hover:-translate-y-0.5 active:translate-y-0 active:scale-95 transition-all duration-200">
-                  <Plus size={18} className="transition-transform group-hover:rotate-90 duration-300" />
+                <button onClick={() => setShowNewIssueModal(true)} className="group shimmer-btn relative inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full text-on-primary font-label-lg text-sm shadow-[0_10px_24px_-4px_rgba(162,61,52,0.45)] hover:shadow-[0_14px_32px_-4px_rgba(162,61,52,0.6)] hover:-translate-y-1 hover:scale-105 active:translate-y-0 active:scale-95 transition-all duration-200">
+                  <Plus size={18} className="transition-transform group-hover:rotate-180 duration-300" />
                   <span className="font-bold tracking-tight">New issue</span>
                   <span className="w-2 h-2 rounded-full bg-primary-fixed animate-ping"></span>
+                  <span className="absolute -top-1 -right-1 text-xs opacity-0 group-hover:opacity-100 transition-opacity">✨</span>
                 </button>
               </div>
             </section>
@@ -642,12 +649,17 @@ export default function Dashboard() {
               </div>
             </section>
 
-            {/* Floating Vibe Check */}
-            <div className="fixed bottom-6 right-6 z-40 flex items-center gap-2">
-              <div className="p-2 rounded-full bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_8px_24px_rgba(157,132,183,0.25)] border border-surface-container-high flex items-center gap-2 px-4 py-2 hover:scale-105 transition-transform cursor-pointer" onClick={() => triggerToast('💫 Vibe Level: 100% Whimsical & Synchronized!')}>
+            {/* Floating Vibe Check & Fun Widgets */}
+            <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-2">
+              <div className="p-2 rounded-full bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_8px_24px_rgba(157,132,183,0.25)] border border-surface-container-high flex items-center gap-2 px-4 py-2 hover:scale-110 hover:rotate-2 transition-all cursor-pointer group" onClick={() => triggerToast('💫 Vibe Level: 200% Whimsical & Synchronized!')}>
                 <span className="animate-spin text-sm" style={{ animationDuration: '8s' }}>✨</span>
                 <span className="font-label-sm text-xs text-on-surface font-bold">Vibe Check</span>
                 <span className="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span>
+                <span className="absolute -top-1 -right-1 text-xs opacity-0 group-hover:opacity-100 transition-opacity">💚</span>
+              </div>
+              <div className="p-2 rounded-full bg-gradient-to-r from-secondary-fixed to-primary-fixed/50 backdrop-blur-xl shadow-[0_8px_24px_rgba(227,199,254,0.35)] border border-secondary/30 flex items-center gap-2 px-3 py-1.5 hover:scale-110 transition-all cursor-pointer" onClick={() => triggerToast('🎨 Theme: Sparkle Mode Activated!')}>
+                <span className="text-sm animate-bounce" style={{ animationDuration: '1.5s' }}>🎭</span>
+                <span className="font-label-sm text-xs text-on-secondary-fixed font-bold">Sparkle Mode</span>
               </div>
             </div>
 
