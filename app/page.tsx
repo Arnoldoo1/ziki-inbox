@@ -49,6 +49,10 @@ export default function Dashboard() {
   const [sentinelStatus, setSentinelStatus] = useState({ status: '💤 Offline · Snoozing', activity: 'No recent activity', online: false });
   const [coddyStatus, setCoddyStatus] = useState({ status: '💤 Offline · Dreaming of Code', activity: 'No recent activity', online: false });
   const [toasts, setToasts] = useState<{ id: number, msg: string }[]>([]);
+  const [activeNav, setActiveNav] = useState('inbox');
+  const [showHeaderAgentsDropdown, setShowHeaderAgentsDropdown] = useState(false);
+  const [showDateDropdown, setShowDateDropdown] = useState(false);
+  const [selectedDateRange, setSelectedDateRange] = useState('All dates');
 
   const triggerToast = (msg: string) => {
     const id = Date.now();
@@ -137,23 +141,23 @@ export default function Dashboard() {
             </div>
           </div>
           <nav className="hidden md:flex items-center gap-1 bg-surface-container-low px-2 py-1.5 rounded-full">
-            <a className="px-4 py-2 rounded-full text-on-surface-variant font-label-lg text-sm transition-all hover:text-on-surface" href="#">Console</a>
-            <a className="px-4 py-2 rounded-full bg-surface-container-lowest text-primary shadow-[0_2px_8px_rgba(42,37,51,0.06)] font-bold font-label-lg text-sm transition-all" href="#">Inbox</a>
-            <a className="px-4 py-2 rounded-full text-on-surface-variant font-label-lg text-sm transition-all hover:text-on-surface" href="#">Issues</a>
-            <a className="px-4 py-2 rounded-full text-on-surface-variant font-label-lg text-sm transition-all hover:text-on-surface" href="#">Ranking</a>
-            <a className="px-4 py-2 rounded-full text-on-surface-variant font-label-lg text-sm transition-all hover:text-on-surface" href="#">Activity</a>
+            <button onClick={() => { setActiveNav('console'); triggerToast('Console coming soon'); }} className={`px-4 py-2 rounded-full font-label-lg text-sm transition-all ${activeNav === 'console' ? 'bg-surface-container-lowest text-primary shadow-[0_2px_8px_rgba(42,37,51,0.06)] font-bold' : 'text-on-surface-variant hover:text-on-surface'}`}>Console</button>
+            <button onClick={() => { setActiveNav('inbox'); triggerToast('Inbox view'); }} className={`px-4 py-2 rounded-full font-label-lg text-sm transition-all ${activeNav === 'inbox' ? 'bg-surface-container-lowest text-primary shadow-[0_2px_8px_rgba(42,37,51,0.06)] font-bold' : 'text-on-surface-variant hover:text-on-surface'}`}>Inbox</button>
+            <button onClick={() => { setActiveNav('issues'); triggerToast('Issues view'); }} className={`px-4 py-2 rounded-full font-label-lg text-sm transition-all ${activeNav === 'issues' ? 'bg-surface-container-lowest text-primary shadow-[0_2px_8px_rgba(42,37,51,0.06)] font-bold' : 'text-on-surface-variant hover:text-on-surface'}`}>Issues</button>
+            <button onClick={() => { setActiveNav('ranking'); triggerToast('Ranking view'); document.getElementById('ranking-section')?.scrollIntoView({ behavior: 'smooth' }); }} className={`px-4 py-2 rounded-full font-label-lg text-sm transition-all ${activeNav === 'ranking' ? 'bg-surface-container-lowest text-primary shadow-[0_2px_8px_rgba(42,37,51,0.06)] font-bold' : 'text-on-surface-variant hover:text-on-surface'}`}>Ranking</button>
+            <button onClick={() => { setActiveNav('activity'); triggerToast('Activity feed coming soon'); }} className={`px-4 py-2 rounded-full font-label-lg text-sm transition-all ${activeNav === 'activity' ? 'bg-surface-container-lowest text-primary shadow-[0_2px_8px_rgba(42,37,51,0.06)] font-bold' : 'text-on-surface-variant hover:text-on-surface'}`}>Activity</button>
           </nav>
           <div className="flex items-center gap-3">
-            <div className="hidden lg:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-tertiary-container/30 text-on-tertiary-container ring-1 ring-tertiary/20">
+            <button onClick={() => pingAllAgents()} className="hidden lg:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-tertiary-container/30 text-on-tertiary-container ring-1 ring-tertiary/20 hover:scale-105 transition-transform">
               <span className="w-2.5 h-2.5 rounded-full bg-tertiary animate-pulse"></span>
               <span className="font-label-md text-sm font-bold">Live Agent</span>
-            </div>
+            </button>
             <div className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-primary-fixed text-on-primary-fixed-variant shadow-[0_4px_12px_-2px_rgba(250,128,114,0.25)] transition-transform hover:scale-105 cursor-pointer">
               <Stars className="text-primary" size={16} />
               <span className="font-headline-sm text-base text-primary font-bold">29,674.99</span>
               <span className="font-label-sm text-xs text-on-surface-variant">pts</span>
             </div>
-            <button className="relative w-10 h-10 rounded-full bg-surface-container-lowest flex items-center justify-center text-on-surface-variant hover:text-on-surface shadow-[0_2px_6px_0_rgba(42,37,51,0.04)] transition-all hover:scale-105 active:scale-95">
+            <button onClick={() => triggerToast('🔔 You have 2 new notifications')} className="relative w-10 h-10 rounded-full bg-surface-container-lowest flex items-center justify-center text-on-surface-variant hover:text-on-surface shadow-[0_2px_6px_0_rgba(42,37,51,0.04)] transition-all hover:scale-105 active:scale-95">
               <Bell size={20} />
               <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-primary text-on-primary font-label-sm text-xs flex items-center justify-center shadow-[0_2px_8px_rgba(162,61,52,0.35)] animate-bounce" style={{ animationDuration: '2.8s' }}>2</span>
             </button>
@@ -370,7 +374,7 @@ export default function Dashboard() {
                     1 issue · sorted by top votes
                   </span>
                 </div>
-                <button className="inline-flex items-center gap-1.5 text-primary hover:text-on-primary-fixed-variant font-label-lg text-sm font-bold transition-all group">
+                <button onClick={() => triggerToast('📋 All issues view coming soon')} className="inline-flex items-center gap-1.5 text-primary hover:text-on-primary-fixed-variant font-label-lg text-sm font-bold transition-all group">
                   <span>View all issues</span>
                   <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                 </button>
@@ -465,20 +469,31 @@ export default function Dashboard() {
                   </div>
                   <div className="flex flex-wrap items-center gap-4 sm:gap-6 justify-between lg:justify-end">
                     <div className="flex items-center gap-2">
-                      <button className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface font-label-md text-xs hover:bg-surface-container-high transition-colors font-medium">
-                        <Calendar size={14} className="text-on-surface-variant" />
-                        <span>All dates</span>
-                        <ChevronDownIcon size={12} />
-                      </button>
+                      <div className="relative">
+                        <button onClick={() => setShowDateDropdown(!showDateDropdown)} className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface font-label-md text-xs hover:bg-surface-container-high transition-colors font-medium">
+                          <Calendar size={14} className="text-on-surface-variant" />
+                          <span>{selectedDateRange}</span>
+                          <ChevronDownIcon size={12} />
+                        </button>
+                        {showDateDropdown && (
+                          <div className="absolute top-full mt-2 left-0 bg-surface-container-lowest border border-surface-container-high rounded-lg shadow-xl z-50 min-w-[140px]">
+                            <div className="py-1">
+                              {['All dates', 'Last 7 days', 'Last 30 days', 'This month'].map(opt => (
+                                <button key={opt} onClick={() => { setSelectedDateRange(opt); setShowDateDropdown(false); triggerToast(`Filtered: ${opt}`); }} className="w-full text-left px-4 py-2 text-sm hover:bg-surface-container-low">{opt}</button>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
                       <div className="flex items-center bg-surface-container-low p-1 rounded-full text-on-surface-variant">
-                        <button onClick={() => setTimeRange('Daily')} className={`px-3 py-1 rounded-full font-label-md text-xs ${timeRange === 'Daily' ? 'bg-surface-container-lowest text-primary font-bold shadow-[0_2px_8px_rgba(42,37,51,0.06)]' : 'hover:text-on-surface transition-colors'}`}>Daily</button>
-                        <button onClick={() => setTimeRange('Weekly')} className={`px-3.5 py-1 rounded-full font-label-md text-xs ${timeRange === 'Weekly' ? 'bg-surface-container-lowest text-primary font-bold shadow-[0_2px_8px_rgba(42,37,51,0.06)]' : 'hover:text-on-surface transition-colors'}`}>Weekly</button>
-                        <button onClick={() => setTimeRange('Monthly')} className={`px-3 py-1 rounded-full font-label-md text-xs ${timeRange === 'Monthly' ? 'bg-surface-container-lowest text-primary font-bold shadow-[0_2px_8px_rgba(42,37,51,0.06)]' : 'hover:text-on-surface transition-colors'}`}>Monthly</button>
-                        <button onClick={() => setTimeRange('Yearly')} className={`px-3 py-1 rounded-full font-label-md text-xs ${timeRange === 'Yearly' ? 'bg-surface-container-lowest text-primary font-bold shadow-[0_2px_8px_rgba(42,37,51,0.06)]' : 'hover:text-on-surface transition-colors'}`}>Yearly</button>
+                        <button onClick={() => { setTimeRange('Daily'); triggerToast('Daily view'); }} className={`px-3 py-1 rounded-full font-label-md text-xs ${timeRange === 'Daily' ? 'bg-surface-container-lowest text-primary font-bold shadow-[0_2px_8px_rgba(42,37,51,0.06)]' : 'hover:text-on-surface transition-colors'}`}>Daily</button>
+                        <button onClick={() => { setTimeRange('Weekly'); triggerToast('Weekly view'); }} className={`px-3.5 py-1 rounded-full font-label-md text-xs ${timeRange === 'Weekly' ? 'bg-surface-container-lowest text-primary font-bold shadow-[0_2px_8px_rgba(42,37,51,0.06)]' : 'hover:text-on-surface transition-colors'}`}>Weekly</button>
+                        <button onClick={() => { setTimeRange('Monthly'); triggerToast('Monthly view'); }} className={`px-3 py-1 rounded-full font-label-md text-xs ${timeRange === 'Monthly' ? 'bg-surface-container-lowest text-primary font-bold shadow-[0_2px_8px_rgba(42,37,51,0.06)]' : 'hover:text-on-surface transition-colors'}`}>Monthly</button>
+                        <button onClick={() => { setTimeRange('Yearly'); triggerToast('Yearly view'); }} className={`px-3 py-1 rounded-full font-label-md text-xs ${timeRange === 'Yearly' ? 'bg-surface-container-lowest text-primary font-bold shadow-[0_2px_8px_rgba(42,37,51,0.06)]' : 'hover:text-on-surface transition-colors'}`}>Yearly</button>
                       </div>
                     </div>
-                    <div className="flex items-center gap-3 pl-2 group cursor-pointer" onClick={() => triggerToast('🌟 Incredible work! Top tier ranking this week.')}>
-                      <div className="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center text-primary shadow-[0_4px_16px_rgba(250,128,114,0.35)] group-hover:scale-110 transition-transform">
+                    <div className="flex items-center gap-3 pl-2 group cursor-pointer" onClick={() => { triggerToast('🌟 Incredible work! Top tier ranking this week!'); document.getElementById('ranking-section')?.scrollIntoView({ behavior: 'smooth' }); }}>
+                      <div className="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center text-primary shadow-[0_4px_16px_rgba(250,128,114,0.35)] group-hover:scale-110 group-hover:rotate-12 transition-transform">
                         <PartyPopper size={24} />
                       </div>
                       <div className="flex flex-col text-right">
@@ -514,7 +529,7 @@ export default function Dashboard() {
                   </div>
                   <div className="grid grid-cols-8 gap-2 sm:gap-4 md:gap-6 items-end h-64 pt-6">
                     {[{d:'7 Sept',h:'44%'},{d:'14 Sept',h:'44%'},{d:'21 Sept',h:'44%'},{d:'28 Sept',h:'44%'},{d:'5 Oct',h:'44%'},{d:'12 Oct',h:'44%'},{d:'19 Oct',h:'48%',hero:true},{d:'26 Oct',h:'44%'}].map((bar, i) => (
-                      <div key={i} className="group flex flex-col items-center h-full justify-end cursor-pointer relative z-20" onClick={() => bar.hero ? triggerToast('🎉 719.82 PTS: Peak milestone unlocked (+219.82 surplus!)') : triggerToast(`📊 ${bar.d}: 0 points recorded`)}>
+                      <div key={i} className="group flex flex-col items-center h-full justify-end cursor-pointer relative z-20" onClick={() => bar.hero ? triggerToast('🎉 719.82 PTS: Peak milestone unlocked (+219.82 surplus!)') : triggerToast(`📊 ${bar.d}: 0 points recorded`)} title={bar.hero ? '719.82 pts' : '0 pts'}>
                         {bar.hero && (
                           <div className="mb-1.5 flex flex-col items-center group-hover:scale-110 transition-transform">
                             <div className="flex items-center gap-1">
