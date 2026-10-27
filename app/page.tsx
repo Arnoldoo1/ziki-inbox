@@ -52,7 +52,12 @@ export default function Dashboard() {
               <span className="text-white">719.82</span>
               <span className="text-gray-400">pts</span>
               <span className="text-gray-500">of 500, 0 solved, 100%.</span>
-              <button className="text-blue-400 hover:text-blue-300">Open Ranking</button>
+              <button 
+              onClick={() => alert('Ranking page - Coming soon')}
+              className="text-blue-400 hover:text-blue-300"
+            >
+              Open Ranking
+            </button>
             </div>
             <button className="relative">
               <Bell size={18} className="text-gray-400" />
@@ -69,7 +74,10 @@ export default function Dashboard() {
           <p className="text-gray-400">Issues, votes and your points for Ziki at a glance.</p>
         </div>
 
-        <button className="mb-6 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-md flex items-center gap-2">
+        <button 
+          onClick={() => alert('Create new issue - Coming soon')}
+          className="mb-6 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-md flex items-center gap-2 transition-colors"
+        >
           <Plus size={16} />
           New issue
         </button>
@@ -131,7 +139,12 @@ export default function Dashboard() {
               <div className="p-4 border-b border-[#1f1f1f] flex items-center justify-between">
                 <h2 className="text-lg font-semibold text-white">Issues assigned to me</h2>
                 <span className="text-sm text-gray-500">1 issue · sorted by top votes</span>
-                <button className="text-sm text-blue-400 hover:text-blue-300">View all issues</button>
+                <button 
+                  onClick={() => alert('All issues page - Coming soon')}
+                  className="text-sm text-blue-400 hover:text-blue-300"
+                >
+                  View all issues
+                </button>
               </div>
               <div className="overflow-x-auto">
                 <table className="w-full">
