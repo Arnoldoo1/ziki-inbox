@@ -77,7 +77,8 @@ export default function Home() {
         </div>
 
         {/* Toggle Switch */}
-        <div className="mb-6">
+        <div className="mb-6 flex items-center gap-3">
+          <span className="text-sm text-[#8b949e]">Toggle view:</span>
           <button
             onClick={toggleView}
             className="px-4 py-2 rounded-md text-sm border transition-colors hover:bg-[#161b22]"
@@ -138,7 +139,7 @@ export default function Home() {
                     className="text-xs px-2 py-1 rounded hover:bg-[#0d1117] transition-colors"
                     style={{ color: '#8b949e' }}
                   >
-                    ⚡ Show TL;DR
+                    Show TL;DR
                   </button>
                 </div>
               </div>
@@ -168,8 +169,8 @@ export default function Home() {
                     <ChevronDown size={16} />
                   </span>
                   {showFullExplanation
-                    ? '⌃ Hide full explanation'
-                    : '⌄ Show full explanation'}
+                    ? 'Hide full explanation'
+                    : 'Show full explanation'}
                 </button>
                 <div
                   className={`overflow-hidden transition-all duration-300 ease-in-out ${
